@@ -50,11 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	#include "usbdrv.h"
 #endif
 
-#ifdef AUDIO_ENABLE
-    #include "audio.h"
-#endif /* AUDIO_ENABLE */
-
-
 static bool command_common(uint8_t code);
 static void command_common_help(void);
 static void print_version(void);
@@ -361,12 +356,7 @@ static bool command_common(uint8_t code)
         case MAGIC_KC(MAGIC_KEY_BOOTLOADER):
             clear_keyboard(); // clear to prevent stuck keys
             print("\n\nJumping to bootloader... ");
-            #ifdef AUDIO_ENABLE
-	            stop_all_notes();
-                shutdown_user();
-            #else
-	            wait_ms(1000);
-            #endif
+	    wait_ms(1000);
             bootloader_jump(); // not return
             break;
 

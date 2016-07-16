@@ -14,12 +14,6 @@
 	#include "lufa.h"
 #endif
 
-#ifdef AUDIO_ENABLE
-    #include "audio.h"
-#endif /* AUDIO_ENABLE */
-
-
-
 #define wdt_intr_enable(value)   \
 __asm__ __volatile__ (  \
     "in __tmp_reg__,__SREG__" "\n\t"    \
@@ -77,11 +71,6 @@ static void power_down(uint8_t wdto)
 
 	// Turn off LED indicators
 	led_set(0);
-
-	#ifdef AUDIO_ENABLE
-        // This sometimes disables the start-up noise, so it's been disabled
-		// stop_all_notes();
-	#endif /* AUDIO_ENABLE */
 
     // TODO: more power saving
     // See PicoPower application note

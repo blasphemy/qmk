@@ -940,22 +940,6 @@ int main(void)
 #ifdef MIDI_ENABLE
 void fallthrough_callback(MidiDevice * device,
     uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2){
-
-#ifdef AUDIO_ENABLE
-  if (cnt == 3) {
-    switch (byte0 & 0xF0) {
-        case MIDI_NOTEON:
-            play_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0), (byte2 & 0x7F) / 8);
-            break;
-        case MIDI_NOTEOFF:
-            stop_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0));
-            break;
-    }
-  }
-  if (byte0 == MIDI_STOP) {
-    stop_all_notes();
-  }
-#endif
 }
 
 void cc_callback(MidiDevice * device,
