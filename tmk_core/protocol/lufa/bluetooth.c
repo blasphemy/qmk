@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "bluetooth.h"
+#include <LUFA/Drivers/USB/USB.h>
 
 void bluefruit_keyboard_print_report(report_keyboard_t *report)
 {
@@ -32,5 +33,7 @@ void bluefruit_keyboard_print_report(report_keyboard_t *report)
 
 void bluefruit_serial_send(uint8_t data)
 {
-    serial_send(data);
+    if (USB_DeviceState != DEVICE_STATE_Configured) {
+      serial_send(data);
+    }
 }

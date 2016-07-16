@@ -21,24 +21,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0xDADE
 #define PRODUCT_ID      0x6061
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         The Preonic Keyboard
-#define DESCRIPTION     A compact ortholinear keyboard
+#define MANUFACTURER    Daniel Leining
+#define PRODUCT         Keyboard
+#define DESCRIPTION     1337 keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
-/* Planck PCB default pin-out */
 #define MATRIX_ROW_PINS { F7, F6, F5, F4, D2 }
-//#define MATRIX_COL_PINS { D1, D0, D4, C6, D7, E6, B4, B5, B6, B2, B3, B1 }
 #define MATRIX_COL_PINS { B1, B3, B2, B6, B5, B4, E6, D7, C6, D4, D0, D1 }
 #define UNUSED_PINS
-
-//#define BACKLIGHT_PIN B7
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

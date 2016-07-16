@@ -59,7 +59,7 @@ static void bluefruit_serial_send(uint8_t data)
     debug_hex8(data);
     dprintf(" ");
 #endif
-    serial_send(data);
+      serial_send(data);
 }
 
 /*------------------------------------------------------------------*
@@ -103,7 +103,6 @@ static void send_keyboard(report_keyboard_t *report)
 #endif
     bluefruit_serial_send(0xFD);
     for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
-
         bluefruit_serial_send(report->raw[i]);
     }
 #ifdef BLUEFRUIT_TRACE_SERIAL   

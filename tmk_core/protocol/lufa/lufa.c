@@ -51,11 +51,6 @@
 
 #include "descriptor.h"
 #include "lufa.h"
-
-#ifdef AUDIO_ENABLE
-    #include <audio.h>
-#endif
-
 #ifdef BLUETOOTH_ENABLE
     #include "bluetooth.h"
 #endif
