@@ -184,14 +184,6 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
 endif
 
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    OPT_DEFS += -DAUDIO_ENABLE
-	SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
-	SRC += $(QUANTUM_DIR)/audio/audio.c
-	SRC += $(QUANTUM_DIR)/audio/voices.c
-	SRC += $(QUANTUM_DIR)/audio/luts.c
-endif
-
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
     OPT_DEFS += -DUNICODE_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c

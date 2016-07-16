@@ -1,9 +1,6 @@
 #include "preonic.h"
 #include "action_layer.h"
 #include "eeconfig.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -160,23 +157,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-float tone_startup[][2] = {
-  {NOTE_B5, 20},
-  {NOTE_B6, 8},
-  {NOTE_DS6, 20},
-  {NOTE_B6, 8}
-};
-
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-#endif
-
 void persistant_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
@@ -247,34 +227,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
 }
 
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
-}
-
-void shutdown_user()
-{
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
-}
-
-#endif
