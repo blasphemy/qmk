@@ -19,7 +19,8 @@ enum preonic_keycodes {
   DVORAK,
   LOWER,
   RAISE,
-  BACKLIT
+  BACKLIT,
+  RST
 };
 
 // Fillers to make layering more clear
@@ -148,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
-  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
+  {_______, RST,     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
   {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
@@ -166,27 +167,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case QWERTY:
           if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-            #endif
             persistant_default_layer_set(1UL<<_QWERTY);
           }
           return false;
           break;
         case COLEMAK:
           if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-            #endif
             persistant_default_layer_set(1UL<<_COLEMAK);
           }
           return false;
           break;
         case DVORAK:
           if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
-            #endif
             persistant_default_layer_set(1UL<<_DVORAK);
           }
           return false;
@@ -211,6 +203,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+        case RST:
+          if (record->event.pressed) {
+            custom_bootloader_jmp(true);
+          }
         case BACKLIT:
           if (record->event.pressed) {
             register_code(KC_RSFT);

@@ -56,7 +56,7 @@ ifdef KEYBOARD_DIR
 	KEYBOARD ?= $(KEYBOARD_DIR)
 endif
 ifndef KEYBOARD
-	KEYBOARD=planck
+	KEYBOARD=preonic
 endif
 
 MASTER ?= left
