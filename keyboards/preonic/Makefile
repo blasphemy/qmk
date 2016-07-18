@@ -1,7 +1,13 @@
 
 
 # MCU name
-MCU = atmega32u4
+MCU_FAMILY = KINETIS
+MCU_SERIES = K20x
+MCU = cortex-m4
+MCU_LDSCRIPT = MKL26Z64
+MCU_STARTUP = k20x7
+BOARD = PJRC_TEENSY_3_1
+ARMV = 7
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -14,13 +20,13 @@ MCU = atmega32u4
 #     does not *change* the processor frequency - it should merely be updated to
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
-F_CPU = 16000000
+#F_CPU = 16000000
 
 #
 # LUFA specific
 #
 # Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
+#ARCH = AVR8
 
 # Input clock frequency.
 #     This will define a symbol, F_USB, in all source code files equal to the
@@ -33,10 +39,10 @@ ARCH = AVR8
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
+#iF_USB = $(F_CPU)
 
 # Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+#OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
 # Boot Section Size in *bytes*
@@ -45,7 +51,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+#OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in 
@@ -60,11 +66,14 @@ NKRO_ENABLE ?= no            # Nkey Rollover - if this doesn't work, see here: h
 BACKLIGHT_ENABLE ?= yes      # Enable keyboard backlight functionality
 MIDI_ENABLE ?= no            # MIDI controls
 UNICODE_ENABLE ?= no         # Unicode
-BLUETOOTH_ENABLE ?= yes       # Enable Bluetooth with the Adafruit EZ-Key HID
+#BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE ?= no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
+
+
+
 
 ifndef QUANTUM_DIR
 	include ../../Makefile
