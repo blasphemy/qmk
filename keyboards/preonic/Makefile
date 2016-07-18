@@ -1,79 +1,69 @@
+# Target file name (without extension).
+PROJECT = ch
 
+# Directory keyboard dependent files exist
+TARGET_DIR = .
 
-# MCU name
+# project specific files
+SRC =	matrix.c \
+	    led.c
+
+CONFIG_H = config.h
+
+## chip/board settings
+# - the next two should match the directories in
+#   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+# - For Teensies, FAMILY = KINETIS and SERIES is either
+#   KL2x (LC) or K20x (3.0,3.1,3.2).
 MCU_FAMILY = KINETIS
 MCU_SERIES = K20x
-MCU = cortex-m4
-MCU_LDSCRIPT = MKL26Z64
+
+# Linker script to use
+# - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+#   or <this_dir>/ld/
+# - NOTE: a custom ld script is needed for EEPROM on Teensy LC
+# - LDSCRIPT =
+#   - MKL26Z64 for Teensy LC
+#   - MK20DX128 for Teensy 3.0
+#   - MK20DX256 for Teensy 3.1 and 3.2
+MCU_LDSCRIPT = MK20DX256
+
+# Startup code to use
+#  - it should exist in <chibios>/os/common/ports/ARMCMx/compilers/GCC/mk/
+# - STARTUP =
+#   - kl2x for Teensy LC
+#   - k20x5 for Teensy 3.0
+#   - k20x7 for Teensy 3.1 and 3.2
 MCU_STARTUP = k20x7
+
+# Board: it should exist either in <chibios>/os/hal/boards/
+#  or <this_dir>/boards
+# - BOARD =
+#   - PJRC_TEENSY_LC for Teensy LC
+#   - PJRC_TEENSY_3 for Teensy 3.0
+#   - PJRC_TEENSY_3_1 for Teensy 3.1 or 3.2
 BOARD = PJRC_TEENSY_3_1
+
+# Cortex version
+# Teensy LC is cortex-m0; Teensy 3.x are cortex-m4
+MCU  = cortex-m4
+
+# ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+# I.e. 6 for Teensy LC; 7 for Teensy 3.x
 ARMV = 7
 
-# Processor frequency.
-#     This will define a symbol, F_CPU, in all source code files equal to the
-#     processor frequency in Hz. You can then use this symbol in your source code to
-#     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
-#     automatically to create a 32-bit value in your source code.
-#
-#     This will be an integer division of F_USB below, as it is sourced by
-#     F_USB after it has run through any CPU prescalers. Note that this value
-#     does not *change* the processor frequency - it should merely be updated to
-#     reflect the processor speed set externally so that the code can use accurate
-#     software delays.
-#F_CPU = 16000000
-
-#
-# LUFA specific
-#
-# Target architecture (see library "Board Types" documentation).
-#ARCH = AVR8
-
-# Input clock frequency.
-#     This will define a symbol, F_USB, in all source code files equal to the
-#     input clock frequency (before any prescaling is performed) in Hz. This value may
-#     differ from F_CPU if prescaling is used on the latter, and is required as the
-#     raw input clock is fed directly to the PLL sections of the AVR for high speed
-#     clock generation for the USB and other AVR subsections. Do NOT tack on a 'UL'
-#     at the end, this will be done automatically to create a 32-bit value in your
-#     source code.
-#
-#     If no clock division is performed on the input clock inside the AVR (via the
-#     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-#iF_USB = $(F_CPU)
-
-# Interrupt driven control endpoint task(+60)
-#OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-#OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in 
-#   the appropriate keymap folder that will get included automatically
+#   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE ?= no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= yes       # Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes       # Audio control and System control(+450)
-CONSOLE_ENABLE ?= no         # Console for debug(+400)
-COMMAND_ENABLE ?= yes        # Commands for debug and configuration
-NKRO_ENABLE ?= no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE ?= yes      # Enable keyboard backlight functionality
-MIDI_ENABLE ?= no            # MIDI controls
-UNICODE_ENABLE ?= no         # Unicode
-#BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE ?= no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
-
-
-
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
+MOUSEKEY_ENABLE = yes	# Mouse keys
+EXTRAKEY_ENABLE = yes	# Audio control and System control
+CONSOLE_ENABLE = no	# Console for debug
+COMMAND_ENABLE = no    # Commands for debug and configuration
+SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+NKRO_ENABLE = yes	    # USB Nkey Rollover
+CUSTOM_MATRIX = yes
 
 ifndef QUANTUM_DIR
 	include ../../Makefile

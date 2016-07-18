@@ -18,22 +18,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "config_common.h"
+//#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xDADE
 #define PRODUCT_ID      0x6061
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Daniel Leining
-#define PRODUCT         Keyboard
-#define DESCRIPTION     1337 keyboard
+#define DESCRIPTION     "1337 keyboard"
+#define USBSTR_MANUFACTURER    'T', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00', '\xc6', '\x00'
+#define USBSTR_PRODUCT         'C', '\x00', 'h', '\x00', 'i', '\x00', 'b', '\x00', 'i', '\x00', 'O', '\x00', 'S', '\x00', ' ', '\x00', 'T', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00', 't', '\x00', 'e', '\x00', 's', '\x00', 't', '\x00'
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
-#define MATRIX_ROW_PINS { F7, F6, F5, F4, D2 }
-#define MATRIX_COL_PINS { B1, B3, B2, B6, B5, B4, E6, D7, C6, D4, D0, D1 }
+
+#define MATRIX_ROW_PINS { 1, 2, 3, 4, 5 }
+#define MATRIX_COL_PINS { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
@@ -55,8 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+   keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
+
 
 /*
  * Feature disable options

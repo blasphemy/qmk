@@ -205,7 +205,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case RST:
           if (record->event.pressed) {
-            custom_bootloader_jmp(true);
           }
         case BACKLIT:
           if (record->event.pressed) {
