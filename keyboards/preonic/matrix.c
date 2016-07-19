@@ -24,6 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "wait.h"
 
+
+//Ghetto macroes to make this work on teensy 3.2. Need to redo this file
+#define T1(x) TEENSY_PIN ## x ## _IOPORT
+#define T2(x) TEENSY_PIN ## x
+#define T3(x,y) ((palReadPad(T1(x), T2(x))==PAL_HIGH) ? 0 : (1<<y))
+#define T4(x) palSetPadMode(T1(x), T2(x), PAL_MODE_INPUT_PULLUP);
+
 #ifndef DEBOUNCE
 #   define DEBOUNCE 5
 #endif
@@ -37,7 +44,6 @@ static matrix_row_t read_cols(void);
 static void init_cols(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
-
 
 inline
 uint8_t matrix_rows(void)
@@ -124,11 +130,6 @@ void matrix_print(void)
         print("\n");
     }
 }
-#define T1(x) TEENSY_PIN ## x ## _IOPORT
-#define T2(x) TEENSY_PIN ## x
-#define T3(x,y) ((palReadPad(T1(x), T2(x))==PAL_HIGH) ? 0 : (1<<y))
-#define T4(x) palSetPadMode(T1(x), T2(x), PAL_MODE_INPUT_PULLUP);
-
 
 /* Column pin configuration
  */
