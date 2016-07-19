@@ -205,6 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case RST:
           if (record->event.pressed) {
+            bootloader_jump();
           }
         case BACKLIT:
           if (record->event.pressed) {
@@ -223,4 +224,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void) {
 }
-
