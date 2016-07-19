@@ -136,7 +136,7 @@ void matrix_print(void)
 static void  init_cols(void)
 {
     // internal pull-up
-    T4(1)
+    T4(19)
     T4(2)
     T4(3)
     T4(4)
@@ -167,7 +167,7 @@ static matrix_row_t read_cols(void)
   result |= T3(4,8);
   result |= T3(3,9);
   result |= T3(2,10);
-  result |= T3(1,11);
+  result |= T3(19,11);
   return result;
 }
 

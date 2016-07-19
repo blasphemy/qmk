@@ -11,6 +11,8 @@ NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: ht
 MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+BLUETOOTH_ENABLE = yes
+
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
