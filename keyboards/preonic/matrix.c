@@ -145,19 +145,29 @@ static void  init_cols(void)
     T4(8)
     T4(9)
     T4(14)
-    T4(13)
+    T4(18)
     T4(16)
   }
 /*
-
-#define MATRIX_COL_PINS { 1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 13, 16 }
 
 */
 /* Returns status of switches(1:on, 0:off) */
 static matrix_row_t read_cols(void)
 {
-    return T3(1,0) | T3(2,1) | T3(3,2) | T3(4,3) | T3(5,4) | T3(6,5) | T3(7,6) | T3(8,7) | \
-    T3(9,8) | T3(14,9) | T3(13,10) | T3(16,11);
+  int result = 0;
+  result |= T3(16,0);
+  result |= T3(18,1);
+  result |= T3(14,2);
+  result |= T3(9,3);
+  result |= T3(8,4);
+  result |= T3(7,5);
+  result |= T3(6,6);
+  result |= T3(5,7);
+  result |= T3(4,8);
+  result |= T3(3,9);
+  result |= T3(2,10);
+  result |= T3(1,11);
+  return result;
 }
 
 /* Row pin configuration
