@@ -65,8 +65,6 @@
             UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
             sei(); \
         } while(0)
-#   else
-#       error "USART configuration is needed."
 #endif
 
 // I'm fairly sure these aren't needed, but oh well - Jack
