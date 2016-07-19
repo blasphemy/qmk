@@ -25,8 +25,11 @@
 #include "suspend.h"
 #ifdef SLEEP_LED_ENABLE
 #include "sleep_led.h"
+#include "bluetooth.h"
 #include "led.h"
 #endif
+
+#define KEYBOARD_EPSIZE 8
 
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
@@ -1115,6 +1118,12 @@ uint8_t keyboard_leds(void) {
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
   osalSysLock();
+  #ifdef BLUETOOTH_ENABLE
+    bluefruit_serial_send(0xFD);
+    for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+      bluefruit_serial_send(report->raw[i]);
+    }
+  #endif
   if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
     osalSysUnlock();
     return;

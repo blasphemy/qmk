@@ -64,7 +64,6 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes
 BLUETOOTH_ENABLE = yes
 
-
 ifndef QUANTUM_DIR
 	include ../../Makefile
 endif
