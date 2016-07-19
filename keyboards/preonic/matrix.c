@@ -146,7 +146,8 @@ static void  init_cols(void)
     T4(9)
     T4(14)
     T4(13)
-    T4(
+    T4(16)
+  }
 /*
 
 #define MATRIX_COL_PINS { 1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 13, 16 }
@@ -160,13 +161,13 @@ static matrix_row_t read_cols(void)
 }
 
 /* Row pin configuration
- */0p;/
+ */
 static void unselect_rows(void)
 {
     palSetPadMode(TEENSY_PIN10_IOPORT, TEENSY_PIN10, PAL_MODE_INPUT); // hi-Z
     palSetPadMode(TEENSY_PIN11_IOPORT, TEENSY_PIN11, PAL_MODE_INPUT); // hi-Z
     palSetPadMode(TEENSY_PIN12_IOPORT, TEENSY_PIN12, PAL_MODE_INPUT); // hi-Z
-    palSetPadMode(TEENSY_PIN13_IOPORT, TEENSY_PIN17, PAL_MODE_INPUT); // hi-Z
+    palSetPadMode(TEENSY_PIN17_IOPORT, TEENSY_PIN17, PAL_MODE_INPUT); // hi-Z
     palSetPadMode(TEENSY_PIN15_IOPORT, TEENSY_PIN15, PAL_MODE_INPUT); // hi-Z
 
 }
