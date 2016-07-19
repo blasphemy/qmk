@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define MATRIX_ROW_PINS { 10, 11, 12, 17, 15 }
-#define MATRIX_COL_PINS { 1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 18, 16 }
+#define MATRIX_COL_PINS { 19, 2, 3, 4, 5, 6, 7, 8, 9, 14, 18, 16 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
@@ -57,8 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key combination for command */
 #define IS_COMMAND() ( \
    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-
-
+)
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
