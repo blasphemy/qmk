@@ -25,11 +25,11 @@
 #include "suspend.h"
 #ifdef SLEEP_LED_ENABLE
 #include "sleep_led.h"
+#ifdef BLUETOOTH_ENABLE
 #include "bluetooth.h"
+#ifdef BLUETOOTH_ENABLE
 #include "led.h"
 #endif
-
-#define KEYBOARD_EPSIZE 8
 
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
@@ -1117,19 +1117,15 @@ uint8_t keyboard_leds(void) {
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
-  osalSysLock();
   #ifdef BLUETOOTH_ENABLE
-    bluefruit_serial_send(0xFD);
-    for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-      bluefruit_serial_send(report->raw[i]);
-    }
+  bluefruit_send_report(report);
   #endif
+  osalSysLock();
   if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
     osalSysUnlock();
     return;
   }
   osalSysUnlock();
-
 #ifdef NKRO_ENABLE
   if(keyboard_nkro) {  /* NKRO protocol */
     /* need to wait until the previous packet has made it through */

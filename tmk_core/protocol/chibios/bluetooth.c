@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "bluetooth.h"
+#include "ch.h"
+#include "hal.h"
 
 void bluefruit_keyboard_print_report(report_keyboard_t *report)
 {
@@ -30,13 +32,17 @@ void bluefruit_keyboard_print_report(report_keyboard_t *report)
     dprintf("\n");
 }
 
-void bluefruit_serial_send(uint8_t data)
-{
-    //if (USB_DeviceState != DEVICE_STATE_Configured) {
-      serial_send(data);
-    //}
+static SerialConfig config = {
+  SERIAL_LINK_BAUD,
+};
+
+void bluefruit_init_serial_link(void) {
+    sdStart(&SD1, &config);
 }
 
-void serial_send(uint8_t data) {
-//  send_data(data);
+void bluefruit_send_report(report_keyboard_t *report) {
+      sdPut(&SD1, 0xFD);
+      for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
+          sdPut(&SD1, report->raw[i]);
+      }
 }

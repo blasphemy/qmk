@@ -41,6 +41,9 @@
 #ifdef VISUALIZER_ENABLE
 #include "visualizer/visualizer.h"
 #endif
+#ifdef BLUETOOTH_ENABLE
+#include "bluetooth.h"
+#endif
 #include "suspend.h"
 
 
@@ -112,7 +115,6 @@ int main(void) {
   visualizer_init();
 #endif
 
-
   host_driver_t* driver = NULL;
 
   /* Wait until the USB or serial link is active */
@@ -148,11 +150,15 @@ int main(void) {
   sleep_led_init();
 #endif
 
+#ifdef BLUETOOTH_ENABLE //TODO this is a bad place to put this...
+print("Starting bluetooth.\n");
+bluefruit_init_serial_link();
+#endif
+
   print("Keyboard start.\n");
 
   /* Main loop */
   while(true) {
-
     if(USB_DRIVER.state == USB_SUSPENDED) {
       print("[s]");
 #ifdef VISUALIZER_ENABLE
