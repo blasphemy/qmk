@@ -60,6 +60,10 @@ uint8_t matrix_cols(void)
 #define LED_ON()    do { palSetPad(TEENSY_PIN13_IOPORT, TEENSY_PIN13) ;} while (0)
 #define LED_OFF()   do { palClearPad(TEENSY_PIN13_IOPORT, TEENSY_PIN13); } while (0)
 #define LED_TGL()   do { palTogglePad(TEENSY_PIN13_IOPORT, TEENSY_PIN13); } while (0)
+#define PB_ON()    do { palSetPad(TEENSY_PIN20_IOPORT, TEENSY_PIN20) ;} while (0)
+#define PB_OFF()   do { palClearPad(TEENSY_PIN20_IOPORT, TEENSY_PIN20); } while (0)
+
+
 
 void matrix_init(void)
 {
@@ -76,8 +80,10 @@ void matrix_init(void)
     //debug
     debug_matrix = true;
     LED_ON();
-    wait_ms(500);
+    PB_ON();
+    wait_ms(2500);
     LED_OFF();
+    PB_OFF();
 }
 
 uint8_t matrix_scan(void)
