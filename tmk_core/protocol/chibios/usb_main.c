@@ -1020,7 +1020,6 @@ void init_usb_driver(USBDriver *usbp) {
   chThdSleepMilliseconds(1500);
   usbStart(usbp, &usbcfg);
   usbConnectBus(usbp);
-
   chVTObjectInit(&keyboard_idle_timer);
 #ifdef CONSOLE_ENABLE
   obqObjectInit(&console_buf_queue, console_queue_buffer, CONSOLE_EPSIZE, CONSOLE_QUEUE_CAPACITY, console_queue_onotify, (void*)usbp);
@@ -1120,9 +1119,9 @@ uint8_t keyboard_leds(void) {
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
-  #ifdef BLUETOOTH_ENABLE
+  if(USB_DRIVER.state != USB_ACTIVE) {
   bluefruit_send_report(report);
-  #endif
+}
   osalSysLock();
   if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
     osalSysUnlock();

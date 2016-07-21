@@ -159,6 +159,7 @@ int main(void) {
 
   /* Main loop */
   while(true) {
+    #ifndef BLUETOOTH_ENABLE
     if(USB_DRIVER.state == USB_SUSPENDED) {
       print("[s]");
 #ifdef VISUALIZER_ENABLE
@@ -186,7 +187,7 @@ int main(void) {
       visualizer_resume();
 #endif
     }
-
+#endif
     keyboard_task();
   }
 }
