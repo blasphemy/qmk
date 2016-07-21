@@ -25,10 +25,10 @@
 #include "suspend.h"
 #ifdef SLEEP_LED_ENABLE
 #include "sleep_led.h"
+#include "led.h"
+#endif
 #ifdef BLUETOOTH_ENABLE
 #include "bluetooth.h"
-#ifdef BLUETOOTH_ENABLE
-#include "led.h"
 #endif
 
 /* ---------------------------------------------------------
@@ -1087,6 +1087,9 @@ static void keyboard_idle_timer_cb(void *arg) {
   /* check that the states of things are as they're supposed to */
   if(usbGetDriverStateI(usbp) != USB_ACTIVE) {
     /* do not rearm the timer, should be enabled on IDLE request */
+    #ifdef BLUETOOTH_ENABLE
+    chVTSetI(&keyboard_idle_timer, 4*MS2ST(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
+    #endif
     osalSysUnlockFromISR();
     return;
   }

@@ -118,6 +118,7 @@ int main(void) {
   host_driver_t* driver = NULL;
 
   /* Wait until the USB or serial link is active */
+  #ifndef BLUETOOTH_ENABLE
   while (true) {
     if(USB_DRIVER.state == USB_ACTIVE) {
       driver = &chibios_driver;
@@ -132,6 +133,10 @@ int main(void) {
 #endif
     chThdSleepMilliseconds(50);
   }
+  #else
+  bluefruit_init_serial_link();
+  driver = &chibios_driver;
+  #endif
 
   /* Do need to wait here!
    * Otherwise the next print might start a transfer on console EP
@@ -148,11 +153,6 @@ int main(void) {
 
 #ifdef SLEEP_LED_ENABLE
   sleep_led_init();
-#endif
-
-#ifdef BLUETOOTH_ENABLE //TODO this is a bad place to put this...
-print("Starting bluetooth.\n");
-bluefruit_init_serial_link();
 #endif
 
   print("Keyboard start.\n");
