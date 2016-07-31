@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef BLUETOOTH_H
 #define BLUETOOTH_H
 
+void bluefruit_serial_send(uint8_t in);
 void bluefruit_init_serial_link(void);
 
 /*

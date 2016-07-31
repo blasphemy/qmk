@@ -1122,10 +1122,12 @@ uint8_t keyboard_leds(void) {
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
   if(USB_DRIVER.state != USB_ACTIVE) {
+  #ifdef BLUETOOTH_ENABLE
   bluefruit_serial_send(0xFD);
   for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
-    bluefruit_serial_send(&SD1, report->raw[i]);
+    bluefruit_serial_send(report->raw[i]);
   }
+  #endif
 }
   osalSysLock();
   if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
@@ -1220,6 +1222,10 @@ void extra_in_cb(USBDriver *usbp, usbep_t ep) {
   (void)ep;
 }
 
+
+
+
+
 static void send_extra_report(uint8_t report_id, uint16_t data) {
   osalSysLock();
   if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
@@ -1241,6 +1247,24 @@ void send_system(uint16_t data) {
 }
 
 void send_consumer(uint16_t data) {
+  #ifdef BLUETOOTH_ENABLE
+  if (USB_DRIVER.state != USB_ACTIVE) {
+    static uint16_t last_data = 0;
+    if (data == last_data) return;
+    last_data = data;
+    uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
+    bluefruit_serial_send(0xFD);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x02);
+    bluefruit_serial_send((bitmap>>8)&0xFF);
+    bluefruit_serial_send(bitmap&0xFF);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x00);
+    return;
+  }
+  #endif
   send_extra_report(REPORT_ID_CONSUMER, data);
 }
 
