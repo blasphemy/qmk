@@ -40,9 +40,6 @@ void bluefruit_init_serial_link(void) {
     sdStart(&SD1, &config);
 }
 
-void bluefruit_send_report(report_keyboard_t *report) {
-      sdPut(&SD1, 0xFD);
-      for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
-          sdPut(&SD1, report->raw[i]);
-      }
+void bluefruit_serial_send(uint8_t in) {
+  sdPut(&SD1, in);
 }

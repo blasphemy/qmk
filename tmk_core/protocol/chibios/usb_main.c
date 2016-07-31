@@ -1122,7 +1122,10 @@ uint8_t keyboard_leds(void) {
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
   if(USB_DRIVER.state != USB_ACTIVE) {
-  bluefruit_send_report(report);
+  bluefruit_serial_send(0xFD);
+  for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
+    bluefruit_serial_send(&SD1, report->raw[i]);
+  }
 }
   osalSysLock();
   if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {

@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BLUETOOTH_H
 
 void bluefruit_init_serial_link(void);
-void bluefruit_send_report(report_keyboard_t *report);
 
 /*
 +-----------------+-------------------+-------+
