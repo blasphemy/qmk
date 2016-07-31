@@ -769,6 +769,8 @@ static const USBEndpointConfig nkro_ep_config = {
  * TODO: maybe disable some things when connection is lost? */
 static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
   switch(event) {
+  case USB_EVENT_UNCONFIGURED:
+    //TODO
   case USB_EVENT_RESET:
     //TODO: from ISR! print("[R]");
     return;
