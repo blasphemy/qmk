@@ -43,3 +43,15 @@ void bluefruit_init_serial_link(void) {
 void bluefruit_serial_send(uint8_t in) {
   sdPut(&SD1, in);
 }
+
+void bluefruit_send_consumer_header() {
+  bluefruit_serial_send(0xFD);
+  bluefruit_serial_send(0x00);
+  bluefruit_serial_send(0x02);
+}
+
+void bluefruit_send_consumer_footer() {
+  for (uint8_t i = 0; i < 4; i++) {
+    bluefruit_serial_send(0x00);
+  }
+}

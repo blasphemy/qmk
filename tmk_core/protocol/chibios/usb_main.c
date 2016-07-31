@@ -1253,15 +1253,10 @@ void send_consumer(uint16_t data) {
     if (data == last_data) return;
     last_data = data;
     uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
-    bluefruit_serial_send(0xFD);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x02);
+    bluefruit_send_consumer_header();
     bluefruit_serial_send((bitmap>>8)&0xFF);
     bluefruit_serial_send(bitmap&0xFF);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
+    bluefruit_send_consumer_footer();
     return;
   }
   #endif

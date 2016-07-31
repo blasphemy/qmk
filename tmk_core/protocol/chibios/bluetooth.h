@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void bluefruit_serial_send(uint8_t in);
 void bluefruit_init_serial_link(void);
-
+void bluefruit_send_consumer_footer(void);
+void bluefruit_send_consumer_header(void);
 /*
 +-----------------+-------------------+-------+
 | Consumer Key    | Bit Map           | Hex   |
