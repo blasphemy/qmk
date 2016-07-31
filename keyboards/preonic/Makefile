@@ -5,7 +5,7 @@ PROJECT = ch
 TARGET_DIR = .
 
 # project specific files
-SRC =	matrix.c
+SRC =	matrix.cc
 CONFIG_H = config.h
 
 ## chip/board settings

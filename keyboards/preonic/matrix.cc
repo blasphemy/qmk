@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * scan matrix
  */
-#include "print.h"
-#include "debug.h"
 #include "util.h"
 #include "matrix.h"
 #include "wait.h"
@@ -65,6 +63,9 @@ uint8_t matrix_cols(void)
 
 
 
+void matrix_print(void) {
+}
+
 void matrix_init(void)
 {
     // initialize row and col
@@ -78,7 +79,6 @@ void matrix_init(void)
     }
 
     //debug
-    debug_matrix = true;
     LED_ON();
     PB_ON();
     wait_ms(2500);
@@ -94,9 +94,6 @@ uint8_t matrix_scan(void)
         matrix_row_t cols = read_cols();
         if (matrix_debouncing[i] != cols) {
             matrix_debouncing[i] = cols;
-            if (debouncing) {
-                debug("bounce!: "); debug_hex(debouncing); debug("\n");
-            }
             debouncing = DEBOUNCE;
         }
         unselect_rows();
@@ -121,20 +118,9 @@ bool matrix_is_on(uint8_t row, uint8_t col)
     return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
-inline
-matrix_row_t matrix_get_row(uint8_t row)
+extern "C" matrix_row_t matrix_get_row(uint8_t row)
 {
     return matrix[row];
-}
-
-void matrix_print(void)
-{
-    print("\nr/c 0123456789ABCDEF\n");
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        pbin_reverse16(matrix_get_row(row));
-        print("\n");
-    }
 }
 
 /* Column pin configuration
